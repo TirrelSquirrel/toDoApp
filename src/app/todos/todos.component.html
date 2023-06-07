@@ -1,0 +1,56 @@
+<section class="heading-section">
+  <h1 class="title is-1 has-text-centered">Tareas pendientes</h1>
+</section>
+
+<div class="container add-todo-box-container">
+  <div class="add-todo-box">
+    <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
+      <h2 class="title is-5">Nueva tarea</h2>
+
+      <div class="field is-grouped my-0">
+        <p class="control is-expanded">
+          <input
+            ngModel
+            #todoTextField="ngModel"
+            required
+            minlength="2"
+            name="text"
+            class="input"
+            type="text"
+            placeholder="Añade una nueva tarea"
+          />
+        </p>
+
+        <p class="control">
+          <button type="submit" class="button alt-gradient-button">
+            <i class="material-symbols-rounded">add</i>
+
+            Añadir
+          </button>
+        </p>
+      </div>
+      <div *ngIf="form?.touched && form?.invalid">
+        <p class="help is-danger" *ngIf="todoTextField.errors?.['required']">
+          ¡No puedes añadir una tara vacía!
+        </p>
+        <p class="help is-danger" *ngIf="todoTextField.errors?.['minlength']">
+          El texto debe tener mínimo 2 carácteres
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="todos-list">
+      <app-todo-item
+        *ngFor="let todo of todos"
+        [todo]="todo"
+        (todoClicked)="toggleCompleted(todo)"
+        (editClicked)="editTodo(todo)"
+        (deleteClicked)="deleteTodo(todo)"
+      ></app-todo-item>
+    </div>
+  </div>
+</section>

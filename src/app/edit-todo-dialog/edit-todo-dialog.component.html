@@ -1,0 +1,41 @@
+<h1 class="title">Editar tarea</h1>
+<div mat-dialog-content>
+  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
+    <div class="field">
+      <div class="control">
+        <input
+          ngModel
+          #todoTextField="ngModel"
+          required
+          minlength="2"
+          name="text"
+          type="text"
+          class="input"
+          placeholder="Nuevo texto"
+          [ngModel]="todo.text"
+          name="text"
+        />
+      </div>
+    </div>
+    <div *ngIf="form?.touched && form?.invalid">
+      <p class="help is-danger" *ngIf="todoTextField.errors?.['required']">
+        ¡No puedes añadir una tara vacía!
+      </p>
+      <p class="help is-danger" *ngIf="todoTextField.errors?.['minlength']">
+        El texto debe tener mínimo 2 carácteres
+      </p>
+    </div>
+    <br />
+    <div class="field is-grouped is-grouped-right">
+      <div class="control">
+        <button class="button is-light" (click)="close()">Cancelar</button>
+      </div>
+      <div class="control">
+        <button type="submit" class="button alt-gradient-button">
+          <i class="material-symbols-rounded">save</i>
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
